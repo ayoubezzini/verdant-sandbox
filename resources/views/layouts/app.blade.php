@@ -8,13 +8,13 @@
     @fonts
     @verdantAssets
 </head>
-<body class="v-bg-gray-50 dark:v-bg-gray-900 v-min-h-screen font-['Karla']">
-    <div
-        x-data="{ dark: localStorage.getItem('verdant-sandbox-theme') === 'dark' }"
-        x-init="$watch('dark', v => localStorage.setItem('verdant-sandbox-theme', v ? 'dark' : 'light'))"
-        :data-theme="dark ? 'dark' : 'light'"
-        class="v-max-w-7xl v-mx-auto v-p-6"
-    >
+<body
+    x-data="{ dark: localStorage.getItem('verdant-sandbox-theme') === 'dark' }"
+    x-init="$watch('dark', v => localStorage.setItem('verdant-sandbox-theme', v ? 'dark' : 'light'))"
+    :data-theme="dark ? 'dark' : 'light'"
+    class="v-bg-gray-50 dark:v-bg-gray-900 v-min-h-screen font-['Karla']"
+>
+    <div class="v-max-w-7xl v-mx-auto v-p-6">
         <div class="v-flex v-items-center v-justify-between v-mb-6">
             <div>
                 <h1 class="v-text-xl v-font-semibold v-text-gray-900 dark:v-text-gray-100">Verdant Sandbox</h1>
