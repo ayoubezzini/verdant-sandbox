@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Tables\UsersTable;
+use Dennenboom\VerdantUI\Contracts\DynamicTablePreferencesStore;
 use Dennenboom\VerdantUI\Tables\Column;
 use Dennenboom\VerdantUI\Tables\DynamicTableQuery;
 use Dennenboom\VerdantUI\Tables\DynamicTableQueryApplier;
@@ -13,16 +14,20 @@ use Illuminate\View\View;
 
 class DemoUsersController extends Controller
 {
-    public function index(): View
+    public function index(DynamicTablePreferencesStore $preferencesStore): View
     {
         $columns = UsersTable::queryColumns();
         $filters = UsersTable::queryFilters();
+
+        DynamicTableQuery::restoreFromStore($preferencesStore, 'demo-users', $filters);
 
         $tableQuery = DynamicTableQuery::fromRequest(
             filters: $filters,
             allowedSortKeys: Column::sortableKeys($columns),
             defaultPerPage: 15,
         );
+
+        $tableQuery->saveTo($preferencesStore, 'demo-users');
 
         $query = User::query();
 
@@ -41,7 +46,11 @@ class DemoUsersController extends Controller
             ->withRowOpenUrl(fn (User $user) => route('demo.users.edit', $user))
             ->withSorting($tableQuery->sort)
             ->withColumnVisibility('demo-users', null)
-            ->withColumnOrder();
+            ->withColumnOrder()
+            ->withPersistentPreferences(
+                store: $preferencesStore,
+                saveUrl: route('table-preferences.store', ['key' => 'demo-users']),
+            );
 
         return view('demo.users.index', ['table' => $table]);
     }
