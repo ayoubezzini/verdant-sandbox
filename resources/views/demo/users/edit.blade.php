@@ -3,7 +3,7 @@
 @section('title', 'Edit user')
 
 @section('content')
-    <div class="v-max-w-lg v-bg-surface v-border dark:v-border-gray-700 v-rounded v-p-6">
+    <div class="v-max-w-lg v-bg-surface v-border v-border-gray-200 dark:v-border-gray-700 v-rounded v-p-6">
         <h2 class="v-text-lg v-font-semibold v-text-gray-900 dark:v-text-gray-100 v-mb-4">
             Edit {{ $user->name }}
         </h2>
