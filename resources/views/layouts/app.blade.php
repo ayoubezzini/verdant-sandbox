@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Verdant Sandbox — @yield('title', 'Demo')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fonts
     @verdantAssets
 </head>
-<body class="v-bg-gray-50 dark:v-bg-gray-900 v-min-h-screen">
+<body class="v-bg-gray-50 dark:v-bg-gray-900 v-min-h-screen font-['Karla']">
     <div
         x-data="{ dark: localStorage.getItem('verdant-sandbox-theme') === 'dark' }"
         x-init="$watch('dark', v => localStorage.setItem('verdant-sandbox-theme', v ? 'dark' : 'light'))"
